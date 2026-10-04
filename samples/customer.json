@@ -1,0 +1,23 @@
+[
+  {
+    "CustomerName": "John Smith",
+    "CustomerId": "CUST-10001",
+    "CustomerEmail": "john.smith@example.com",
+    "CustomerPhone": "+63 917 123 4567",
+    "CustomerAge": 20
+  },
+  {
+    "CustomerName": "Jane Doe",
+    "CustomerId": "CUST-10002",
+    "CustomerEmail": "jane.doe@example.com",
+    "CustomerPhone": "+63 917 123 4568",
+    "CustomerAge": 17
+  },
+  {
+    "CustomerName": "John Doe",
+    "CustomerId": "CUST-10003",
+    "CustomerEmail": "john.doe@example.com",
+    "CustomerPhone": "+63 917 123 4569",
+    "CustomerAge": 25
+  }
+]

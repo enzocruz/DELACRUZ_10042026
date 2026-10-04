@@ -1,0 +1,21 @@
+[
+   {
+    "First Name": "John",
+    "Last Name":"Doe"
+   
+  },
+  {
+    "CustomerName": "John Smith",
+    "CustomerIdS": "CUST-10001"
+   
+  },
+  {
+    "CustomerName": "Jane Doe",
+    "CustomerIdS": "CUST-10002"
+    
+  },
+  {
+    "CustomerName": "John Doe"
+   
+  }
+]
