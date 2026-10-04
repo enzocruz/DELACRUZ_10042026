@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/.idea/
+.git
+.DS_Store
+
+# Secrets and local settings must never reach the image
+**/.env
+**/.env.*
+**/appsettings.json
+**/appsettings.Development.json
