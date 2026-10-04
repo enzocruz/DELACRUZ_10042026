@@ -46,17 +46,17 @@ public  static class UploadEndpointHandler
             ProcessedEnd
         );
         fileReport.RecordFile(record);
-        _logger.LogInformation($"Processeing time elapsed {record.ProccessingTimeMS}");
+        _logger.LogInformation($"Processed {record.FileName}: {record.AcceptedRecordCount} accepted in {record.ProccessingTimeMS} ms");
         return Results.Ok(result); 
         }
         catch(JsonException ex)
         {
-            _logger.LogError($"Invalid JSON Format: {ex.Message}");
+            _logger.LogWarning(ex, "Rejected {FileName}: invalid JSON", file.FileName);
             return Results.BadRequest("Invalid JSON format.");
         }catch(Exception ex)
         {
-             _logger.LogError($"An error occurred while processing the file: {ex.Message}");
-            return Results.BadRequest("An error occurred while processing the file.");
+             _logger.LogError(ex,$"Failed to process {file.FileName}");
+            return Results.Problem("An error occurred while processing the file.");
         }
     }
 }
