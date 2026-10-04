@@ -51,7 +51,7 @@ public  static class UploadEndpointHandler
         }
         catch(JsonException ex)
         {
-            _logger.LogWarning(ex, "Rejected {FileName}: invalid JSON", file.FileName);
+            _logger.LogWarning(ex, $"Rejected {file.FileName}: invalid JSON", file.FileName);
             return Results.BadRequest("Invalid JSON format.");
         }catch(Exception ex)
         {
