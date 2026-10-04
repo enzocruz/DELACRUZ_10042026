@@ -1,12 +1,3 @@
-# Local / manual runs only. CI does NOT use this file — deployment goes through
-# .gitlab-ci.yml and `docker run` (see README).
-#
-#   cp .env.example .env    # fill in the required values
-#   docker compose up -d
-#
-# The database is external (shared dev Postgres, or your own instance); this file
-# does not run one. Secrets have no defaults on purpose: Program.cs throws at
-# startup when ConnectionStrings__DefaultConnection or Jwt__Secret is missing.
 
 services:
   api:
@@ -18,8 +9,7 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
-      - ASPNETCORE_ENVIRONMENT=development
-      - ASPNETCORE_URLS=http://+:8085
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "8085:8085"
   
