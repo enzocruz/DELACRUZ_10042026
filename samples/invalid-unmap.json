@@ -1,0 +1,10 @@
+[
+    {
+    "CustomerName": "John Doe",
+    "CustomerId": "CUST-10003",
+    "CustomerEmail": "john.doe@example.com",
+    "CustomerPhone": "+63 917 123 4569",
+    "CustomerAge": 25,
+    "FirstName":"John"
+  }
+]

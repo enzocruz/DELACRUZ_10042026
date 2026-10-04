@@ -1,6 +1,7 @@
 
 
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FileProcessing.Api.Features.Files.Upload;
 
@@ -12,7 +13,9 @@ public class FileProcessor : IFileProcessor
     {
         _logger = logger;
     }
-
+     private readonly JsonSerializerOptions options= new() {
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
+    };
     public async Task<FileProcessingResults> ProcessFileAsync(IFormFile file ,CancellationToken cancellationToken)
     {
         if(file == null)
@@ -36,7 +39,7 @@ public class FileProcessor : IFileProcessor
         
         try
         {
-           var customers = await JsonSerializer.DeserializeAsync<List<Customers>>(stream, cancellationToken: cancellationToken);
+           var customers = await JsonSerializer.DeserializeAsync<List<Customers>>(stream,options, cancellationToken: cancellationToken);
             if (customers == null)
             {
                 _logger.LogWarning("No customers found in the file {FileName}", file.FileName);
