@@ -5,9 +5,10 @@ public record FilesRecord (
     int TotalRecordCount,
     int AcceptedRecordCount,
     long FileSize,
-    DateTime CreatedDate,
-    DateTime ModifiedDate
+    DateTime ProcessingStart,
+    DateTime ProcessingEnd   
 )
 {
     public int RejectedRecordCount => TotalRecordCount - AcceptedRecordCount;
+    public double ProccessingTimeMS=>(ProcessingEnd-ProcessingStart).TotalMilliseconds;
 }

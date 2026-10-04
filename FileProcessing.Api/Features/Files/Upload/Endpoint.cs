@@ -32,15 +32,19 @@ public  static class UploadEndpointHandler
             return Results.BadRequest("Invalid file format. Only Json files are allowed.");
         }
         try{ 
+        DateTime ProcessStated=DateTime.UtcNow;
+    
         var result = await fileProcessor.ProcessFileAsync(file,cancellationToken);
+
+        DateTime ProcessedEnd=DateTime.UtcNow;
 
         fileReport.RecordFile(new FilesRecord(
             file.FileName,
             result.RecordsProcessed,
             result.RecordsAccepted,
             file.Length,
-            DateTime.UtcNow,
-            DateTime.UtcNow
+            ProcessStated,
+            ProcessedEnd
         ));
         return Results.Ok(result); 
         }
