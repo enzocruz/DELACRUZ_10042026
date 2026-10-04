@@ -21,7 +21,7 @@ public class UploadEndpoint :IEndpoint
 public  static class UploadEndpointHandler
 {
     public static  async Task<IResult> HandleAsync(IFormFile file,[FromServices] IFileProcessor fileProcessor,
-       [FromServices] IFileReport fileReport, CancellationToken cancellationToken)
+       [FromServices] IFileReport fileReport, CancellationToken cancellationToken,[FromServices] ILogger<UploadEndpoint>_logger)
     {
         if (file == null || file.Length == 0)
         {
@@ -37,22 +37,25 @@ public  static class UploadEndpointHandler
         var result = await fileProcessor.ProcessFileAsync(file,cancellationToken);
 
         DateTime ProcessedEnd=DateTime.UtcNow;
-
-        fileReport.RecordFile(new FilesRecord(
+        var record=new FilesRecord(
             file.FileName,
             result.RecordsProcessed,
             result.RecordsAccepted,
             file.Length,
             ProcessStated,
             ProcessedEnd
-        ));
+        );
+        fileReport.RecordFile(record);
+        _logger.LogInformation($"Processeing time elapsed {record.ProccessingTimeMS}");
         return Results.Ok(result); 
         }
         catch(JsonException ex)
         {
+            _logger.LogError($"Invalid JSON Format: {ex.Message}");
             return Results.BadRequest("Invalid JSON format.");
         }catch(Exception ex)
         {
+             _logger.LogError($"An error occurred while processing the file: {ex.Message}");
             return Results.BadRequest("An error occurred while processing the file.");
         }
     }

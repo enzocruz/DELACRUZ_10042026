@@ -39,6 +39,7 @@ builder.Services.AddScoped<IFileProcessor, FileProcessor>();
 builder.Services.AddSingleton<IFileReport, FileReport>();
 var app = builder.Build();
 
+app.UseExceptionHandler();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
