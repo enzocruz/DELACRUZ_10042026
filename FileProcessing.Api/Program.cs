@@ -1,6 +1,8 @@
 using FileProcessing.Api.Features.Files;
 using FileProcessing.Api.Features.Files.Reports;
 using FileProcessing.Api.Features.Files.Upload;
+using FileProcessing.Api.Middleware;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,30 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 //add swagger
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
+    {
+        Title = "File Processing API",
+        Version = "v1",
+        Description = "An API for processing files and generating reports."
+    });
+
+    options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Description = "API Key needed to access the endpoints. X-API-KEY: Your_API_Key",
+        In = ParameterLocation.Header,
+        Name = "X-API-KEY",
+        Type = SecuritySchemeType.ApiKey,
+       
+    });
+    
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("ApiKey", document)] = []
+    });
+       
+});
 //add services to the container
 builder.Services.AddScoped<IFileProcessor, FileProcessor>();
 builder.Services.AddSingleton<IFileReport, FileReport>();
@@ -25,7 +50,7 @@ app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<ApiMiddleware>();
 //add endpoints to the container
 app.MapFilesEndpoint();
 
