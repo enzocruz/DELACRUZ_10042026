@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="FileProcessing.Api/FileProcessing.Api.csproj" />
+  <Project Path="FileProcessingApi.Test/FileProcessingApi.Test.csproj" />
+</Solution>
