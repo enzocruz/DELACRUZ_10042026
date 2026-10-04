@@ -1,9 +1,5 @@
 [
-   {
-    "First Name": "John",
-    "Last Name":"Doe"
-   
-  },
+ 
   {
     "CustomerName": "John Smith",
     "CustomerIdS": "CUST-10001"
